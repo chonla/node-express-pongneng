@@ -11,12 +11,14 @@ module.exports = () => {
         extended: true
     }))
 
+    app.use(require('../routes/session.route')())
     app.use(require('../routes/user.route')())
     app.use(require('../routes/book.route')())
 
     app.use((err, req, res, next) => {
         console.log(err)
-        res.send(err)
+        res.status(401)
+        res.send(err.message)
     })
 
     return app
